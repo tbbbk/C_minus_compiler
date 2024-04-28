@@ -35,9 +35,14 @@ def tokenize(code: str, regex_patterns: re.Pattern, keyword_cls: type) -> List[T
     tokens (List[Tuple[str, str]]): List of tokens
     """
     tokens = []
+    last_pos = 0
     for match in regex_patterns.finditer(code):
+        if match.start() != last_pos:
+            unmatched_value = repr(code[last_pos:match.start()])
+            tokens.append(('ERROR', unmatched_value))
         kind = match.lastgroup
         value = match.group()
+        last_pos = match.end()
         if kind in keyword_cls.get_ignore_tokens():
             continue
         tokens.append((kind, repr(value)))
@@ -45,20 +50,39 @@ def tokenize(code: str, regex_patterns: re.Pattern, keyword_cls: type) -> List[T
 
 
 def print_tokens(tokens: List[Tuple[str, str]]) -> None:
+    """
+    Print result tokens
+    
+    Parameters:
+    tokens (List[Tuple[str, str]]): List of tokens
+    
+    Returns:
+    None
+    """
     print(f"{'TOKEN-TYPE':<12}", f"{'|':^3}", f"{'TOKEN-VALUE':<15}")
     print(f"{'-'*33:^33}")
     for type, value in tokens:
         print(f"{type:<12}", f"{'|':^3}", f"{value:<15}")
 
 
-def main(args):
-    file = read_file(args.file_path)
+def scan(file_path: str) -> List[Tuple[str, str]]:
+    """
+    Scan and tokenize the file
+    
+    Parameters:
+    file_path (str): File path to be scanned
+    
+    Returns:
+    tokens (List[Tuple[str, str]]): List of tokens
+    """
+    file = read_file(file_path)
     regex_patterns = get_regex_patterns(KEYWORD)
     tokens = tokenize(file, regex_patterns, type(KEYWORD))
     print_tokens(tokens)
+    return tokens
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Scanner")
     parser.add_argument('--file_path', type=str, help='File to be scanned')
-    main(parser.parse_args())
+    scan(parser.parse_args().file_path)
