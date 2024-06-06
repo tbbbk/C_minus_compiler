@@ -62,16 +62,60 @@ def build_first_set(grammar: dict):
         for non_terminal in grammar:
             original_size = len(first_set[non_terminal])
             first(non_terminal)
-            pdb.set_trace()
+            # pdb.set_trace()
             if len(first_set[non_terminal]) > original_size:
                 changed = True
                 
     return first_set
 
 
-def build_follow_set(grammar: dict):
-    #TODO
-    pass
+def build_follow_set(grammar: dict, first_set: dict):
+    # 初始化每个非终结符的Follow集为空集
+    follow_set = {non_terminal: set() for non_terminal in grammar}
+    
+    # 添加开始符号的Follow集
+    start_symbol = next(iter(grammar))  # 假设第一个非终结符是开始符号
+    follow_set[start_symbol].add('$')
+    
+    # 迭代直到Follow集不再变化
+    changed = True
+    while changed:
+        changed = False
+        for non_terminal in grammar:
+            for production in grammar[non_terminal]:
+                # 遍历产生式中的每个位置
+                for i, symbol in enumerate(production):
+                    if symbol not in grammar:
+                        continue  # 当前符号是终结符，跳过
+                    
+                    # 当前符号后面有符号
+                    if i + 1 < len(production):
+                        next_symbol = production[i + 1]
+                        if next_symbol in grammar:
+                            # 将next_symbol的FIRST集（除去'empty'）添加到symbol的FOLLOW集中
+                            original_follow = follow_set[symbol].copy()
+                            follow_set[symbol].update(first_set[next_symbol] - {'empty'})
+                            if 'empty' in first_set[next_symbol]:
+                                follow_set[symbol].update(follow_set[non_terminal])
+                            if follow_set[symbol] != original_follow:
+                                changed = True
+                        else:
+                            # 下一个符号是终结符
+                            original_follow = follow_set[symbol].copy()
+                            follow_set[symbol].add(next_symbol)
+                            if follow_set[symbol] != original_follow:
+                                changed = True
+                    else:
+                        # 当前符号是产生式的最后一个符号，将non_terminal的FOLLOW集添加到symbol的FOLLOW集中
+                        original_follow = follow_set[symbol].copy()
+                        follow_set[symbol].update(follow_set[non_terminal])
+                        if follow_set[symbol] != original_follow:
+                            changed = True
+
+    return follow_set
+
+
+
 
 def build_analysis_table(grammar: dict,
                          first_set: dict,
@@ -83,8 +127,9 @@ def syntax_analysis(tokens: Tuple[str, str]):
     grammar = GRAMMAR
     grammar = eliminate_left_recursion(grammar=grammar)
     first_set = build_first_set(grammar=grammar)
+    follow_set = build_follow_set(grammar=grammar, 
+                                  first_set=first_set)
     pdb.set_trace()
-    build_follow_set()
     build_analysis_table()
 
 
