@@ -161,6 +161,7 @@ def parse_ll1(tokens: List[Tuple[str, str]], ll1_table: Dict[str, Dict[str, List
     while len(stack) > 0:
         top = stack.pop()
         current_token, _ = tokens[index]
+        pdb.set_trace()
         
         if top in ll1_table:  # 栈顶是非终结符
             if current_token in ll1_table[top]:
@@ -184,14 +185,14 @@ def parse_ll1(tokens: List[Tuple[str, str]], ll1_table: Dict[str, Dict[str, List
 
 
 def syntax_analysis(tokens: Tuple[str, str]):
-    grammar = GRAMMAR
-    grammar = eliminate_left_recursion(grammar=grammar)
-    first_set = build_first_set(grammar=grammar)
-    follow_set = build_follow_set(grammar=grammar, 
-                                  first_set=first_set)
-    analysis_table = build_ll1_table(grammar=grammar, 
-                         first_set=first_set,
-                         follow_set=follow_set)
+    # grammar = GRAMMAR
+    # grammar = eliminate_left_recursion(grammar=grammar)
+    # first_set = build_first_set(grammar=grammar)
+    # follow_set = build_follow_set(grammar=grammar, 
+    #                               first_set=first_set)
+    # analysis_table = build_ll1_table(grammar=grammar, 
+    #                      first_set=first_set,
+    #                      follow_set=follow_set)
     ll1_table = {
     'additive_expression': {'(': ['term', "additive_expression'"],
                             'IDENTIFIER': ['term', "additive_expression'"],
@@ -351,5 +352,5 @@ def syntax_analysis(tokens: Tuple[str, str]):
 
 if __name__ == '__main__':
     tokens = scan(file_path='src\\test_tokenizer\\sample_2', print=False)
-    # pdb.set_trace()
+    print(tokens)
     syntax_analysis(tokens)
