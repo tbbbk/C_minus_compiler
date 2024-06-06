@@ -65,7 +65,7 @@ def print_tokens(tokens: List[Tuple[str, str]]) -> None:
         print(f"{type:<12}", f"{'|':^3}", f"{value:<15}")
 
 
-def scan(file_path: str) -> List[Tuple[str, str]]:
+def scan(file_path: str, print: bool=True) -> List[Tuple[str, str]]:
     """
     Scan and tokenize the file
     
@@ -78,7 +78,8 @@ def scan(file_path: str) -> List[Tuple[str, str]]:
     file = read_file(file_path)
     regex_patterns = get_regex_patterns(KEYWORD)
     tokens = tokenize(file, regex_patterns, type(KEYWORD))
-    print_tokens(tokens)
+    if print:
+        print_tokens(tokens)
     return tokens
 
 
