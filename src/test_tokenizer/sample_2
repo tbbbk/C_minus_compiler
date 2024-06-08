@@ -1,6 +1,7 @@
 void main(void)
 {
-	int x;int y;
+	int x;
+	int y;
 	x=input();
 	y=intput();
 	output(gcd(x,y));
