@@ -6,11 +6,17 @@
     ],
     "declaration_list": [
         [
-            "declaration_list",
-            "declaration"
+            "declaration",
+            "declaration_list'"
+        ]
+    ],
+    "declaration_list'": [
+        [
+            "declaration",
+            "declaration_list'"
         ],
         [
-            "declaration"
+            "empty"
         ]
     ],
     "declaration": [
@@ -23,10 +29,8 @@
     ],
     "var_declaration": [
         [
-            [
-                "type_specifier",
-                "ID"
-            ],
+            "type_specifier",
+            "ID",
             "var_declaration*"
         ]
     ],
@@ -69,20 +73,24 @@
     ],
     "param_list": [
         [
-            "param_list",
+            "param",
+            "param_list'"
+        ]
+    ],
+    "param_list'": [
+        [
             ",",
-            "param"
+            "param",
+            "param_list'"
         ],
         [
-            "param"
+            "empty"
         ]
     ],
     "param": [
         [
-            [
-                "type_specifier",
-                "ID"
-            ],
+            "type_specifier",
+            "ID",
             "param*"
         ]
     ],
@@ -105,8 +113,14 @@
     ],
     "local_declarations": [
         [
-            "local_declarations",
-            "var_declaration"
+            "empty",
+            "local_declarations'"
+        ]
+    ],
+    "local_declarations'": [
+        [
+            "var_declaration",
+            "local_declarations'"
         ],
         [
             "empty"
@@ -114,8 +128,14 @@
     ],
     "statement_list": [
         [
-            "statement_list",
-            "statement"
+            "empty",
+            "statement_list'"
+        ]
+    ],
+    "statement_list'": [
+        [
+            "statement",
+            "statement_list'"
         ],
         [
             "empty"
@@ -149,13 +169,11 @@
     ],
     "selection_stmt": [
         [
-            [
-                "if",
-                "(",
-                "expression",
-                ")",
-                "statement"
-            ],
+            "if",
+            "(",
+            "expression",
+            ")",
+            "statement",
             "selection_stmt*"
         ]
     ],
@@ -179,9 +197,7 @@
     ],
     "return_stmt": [
         [
-            [
-                "return"
-            ],
+            "return",
             "return_stmt*"
         ]
     ],
@@ -209,9 +225,7 @@
     ],
     "var": [
         [
-            [
-                "ID"
-            ],
+            "ID",
             "var*"
         ]
     ],
@@ -227,9 +241,7 @@
     ],
     "simple_expression": [
         [
-            [
-                "additive_expression"
-            ],
+            "additive_expression",
             "simple_expression*"
         ]
     ],
@@ -264,12 +276,18 @@
     ],
     "additive_expression": [
         [
-            "additive_expression",
+            "term",
+            "additive_expression'"
+        ]
+    ],
+    "additive_expression'": [
+        [
             "addop",
-            "term"
+            "term",
+            "additive_expression'"
         ],
         [
-            "term"
+            "empty"
         ]
     ],
     "addop": [
@@ -282,12 +300,18 @@
     ],
     "term": [
         [
-            "term",
+            "factor",
+            "term'"
+        ]
+    ],
+    "term'": [
+        [
             "mulop",
-            "factor"
+            "factor",
+            "term'"
         ],
         [
-            "factor"
+            "empty"
         ]
     ],
     "mulop": [
@@ -332,12 +356,18 @@
     ],
     "arg_list": [
         [
-            "arg_list",
+            "expression",
+            "arg_list'"
+        ]
+    ],
+    "arg_list'": [
+        [
             ",",
-            "expression"
+            "expression",
+            "arg_list'"
         ],
         [
-            "expression"
+            "empty"
         ]
     ]
 }

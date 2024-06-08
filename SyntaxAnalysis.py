@@ -26,38 +26,40 @@ def eliminate_left_recursion_and_factor(grammar: dict) -> dict:
             new_grammar[non_terminal] = []
             new_grammar[new_non_terminal] = []
             for b in beta:
+                # if b == ['empty']:
+                #     new_grammar[non_terminal].append([new_non_terminal])
+                # else:
                 new_grammar[non_terminal].append(b + [new_non_terminal])
             for a in alpha:
                 new_grammar[new_non_terminal].append(a + [new_non_terminal])
             new_grammar[new_non_terminal].append(['empty'])
         else:
             new_grammar[non_terminal] = grammar[non_terminal]
-    
-    new_grammar = {}
-    for non_terminal in grammar:
+    # input()            
+    new_new_grammar = {}
+    for non_terminal in new_grammar:
         """
         eliminate the left factors
         """
         left_factor = []
-        for factor in zip(*grammar[non_terminal]):
+        for factor in zip(*new_grammar[non_terminal]):
             if len(set(factor)) == 1:
                 left_factor.append(factor[0])
             else:
                 break
-        if len(left_factor) == 0 or len(grammar[non_terminal]) <= 1:
-            new_grammar[non_terminal] = grammar[non_terminal]
+        if len(left_factor) == 0 or len(new_grammar[non_terminal]) <= 1:
+            new_new_grammar[non_terminal] = new_grammar[non_terminal]
         else:
-            print(left_factor)
             new_non_terminal = non_terminal + "*"
-            new_grammar[non_terminal] = [[left_factor] + [new_non_terminal]]
+            new_new_grammar[non_terminal] = [left_factor + [new_non_terminal]]
             new_production = []
-            for production in grammar[non_terminal]:
+            for production in new_grammar[non_terminal]:
                 if len(left_factor) != len(production):
                     new_production.append(production[len(left_factor):])
             new_production.append(['empty'])
-            new_grammar[new_non_terminal] = new_production
+            new_new_grammar[new_non_terminal] = new_production
 
-    return new_grammar
+    return new_new_grammar
 
 
 def build_first_set(grammar: dict) -> dict:
@@ -66,8 +68,6 @@ def build_first_set(grammar: dict) -> dict:
     def first(symbol):
         if symbol not in grammar:
             return {symbol}
-        if len(first_set[symbol]) != 0:
-            return first_set[symbol]
 
         for production in grammar[symbol]:
             for token in production:
@@ -102,6 +102,7 @@ def build_follow_set(grammar: dict, first_set: dict, start_symbol: str) -> dict:
             for production in grammar[non_terminal]:
                 for i, symbol in enumerate(production):
                     if symbol not in grammar:
+                        print(symbol)
                         continue
                     if i + 1 < len(production):
                         next_symbol = production[i + 1]
@@ -132,10 +133,9 @@ def build_ll1_table(grammar: dict, first_set: dict, follow_set: dict) -> dict:
     for non_terminal in grammar:
         for production in grammar[non_terminal]:
             first_value = [production[0]] if production[0] not in first_set else first_set[production[0]]
-            if first_value != ['empty']:
-                for a in first_value:
-                    ll1_table[non_terminal].update({a: production})
-            if first_value == ['empty'] or 'empty' in first_value:
+            for a in first_value:
+                ll1_table[non_terminal].update({a: production})
+            if 'empty' in first_value:
                 for a in follow_set[non_terminal]:
                     ll1_table[non_terminal].update({a: production})
     return ll1_table
@@ -154,13 +154,16 @@ def parse_ll1(tokens: List[Tuple[str, str]],
             elif token == stack[-1] and token != '$':
                 stack.pop()
                 print(f'[Match] {token}')
+                # print('-[stack]', stack, '[token]', token)
                 break
             elif token != stack[-1] and stack[-1] in grammar:
                 if token in ll1_table[stack[-1]].keys():
-                    print(f'[Predict] {stack[-1]} -> {ll1_table[stack[-1]][token]}')
+                    print(f'[Predict] input token {token}: {stack[-1]} -> {ll1_table[stack[-1]][token]}')
                     stack_top = stack.pop()
                     stack += reversed(ll1_table[stack_top][token])
-                    print('-[stack]', stack, '[token]', token)
+                    stack = list(filter(lambda x : x != 'empty', stack))
+                    # print('-[stack]', stack, '[token]', token)
+                    
                 else:
                     print('[stack]', stack, '[token]', token)
                     print(f"[Failed] Undefined ll1_table key: {token}")
@@ -176,23 +179,24 @@ def syntax_analysis(tokens: Tuple[str, str]):
     start_symbol = 'program'
     new_tokens = convert_tokens(tokens)
     grammar = eliminate_left_recursion_and_factor(grammar=grammar)
-    # first_set = build_first_set(grammar=grammar)
-    # follow_set = build_follow_set(grammar=grammar, 
-    #                               first_set=first_set, 
-    #                               start_symbol=start_symbol)
-    # ll1_table = build_ll1_table(grammar=grammar, 
-    #                             first_set=first_set, 
-    #                             follow_set=follow_set)
+    first_set = build_first_set(grammar=grammar)
+    follow_set = build_follow_set(grammar=grammar, 
+                                  first_set=first_set, 
+                                  start_symbol=start_symbol)
+    ll1_table = build_ll1_table(grammar=grammar, 
+                                first_set=first_set, 
+                                follow_set=follow_set)
     import json
     with open('grammar.json', 'w') as f:
         json.dump(grammar, f, indent=4)
-    # with open('ll1_table.json', 'w') as f:
-    #     json.dump(ll1_table, f, indent=4)
+    with open('ll1_table.json', 'w') as f:
+        json.dump(ll1_table, f, indent=4)
     # pdb.set_trace()
-    # parse_ll1(tokens=new_tokens,
-    #           ll1_table=ll1_table,
-    #           grammar=grammar,
-    #           start_symbol=start_symbol)
+    parse_ll1(tokens=new_tokens,
+              ll1_table=ll1_table,
+              grammar=grammar,
+              start_symbol=start_symbol)
+    pdb.set_trace()
 
 
 def convert_tokens(tokens: List[str]) -> List[str]:
