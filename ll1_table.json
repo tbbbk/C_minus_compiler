@@ -1,0 +1,586 @@
+{
+    "program": {
+        "int": [
+            "declaration_list"
+        ],
+        "void": [
+            "declaration_list"
+        ]
+    },
+    "declaration_list": {
+        "int": [
+            "declaration",
+            "declaration_list'"
+        ],
+        "void": [
+            "declaration",
+            "declaration_list'"
+        ]
+    },
+    "declaration_list'": {
+        "int": [
+            "declaration",
+            "declaration_list'"
+        ],
+        "void": [
+            "declaration",
+            "declaration_list'"
+        ],
+        "$": [
+            "empty"
+        ]
+    },
+    "declaration": {
+        "int": [
+            "fun_declaration"
+        ],
+        "void": [
+            "fun_declaration"
+        ]
+    },
+    "var_declaration": {
+        "int": [
+            "type_specifier",
+            "ID",
+            "[",
+            "NUM",
+            "]",
+            ";"
+        ],
+        "void": [
+            "type_specifier",
+            "ID",
+            "[",
+            "NUM",
+            "]",
+            ";"
+        ]
+    },
+    "type_specifier": {
+        "int": [
+            "int"
+        ],
+        "void": [
+            "void"
+        ]
+    },
+    "fun_declaration": {
+        "int": [
+            "type_specifier",
+            "ID",
+            "(",
+            "params",
+            ")",
+            "compound_stmt"
+        ],
+        "void": [
+            "type_specifier",
+            "ID",
+            "(",
+            "params",
+            ")",
+            "compound_stmt"
+        ]
+    },
+    "params": {
+        "int": [
+            "param_list"
+        ],
+        "void": [
+            "void"
+        ]
+    },
+    "param_list": {
+        "int": [
+            "param",
+            "param_list'"
+        ],
+        "void": [
+            "param",
+            "param_list'"
+        ]
+    },
+    "param_list'": {
+        ",": [
+            ",",
+            "param",
+            "param_list'"
+        ],
+        ")": [
+            "empty"
+        ]
+    },
+    "param": {
+        "int": [
+            "type_specifier",
+            "ID",
+            "[",
+            "]"
+        ],
+        "void": [
+            "type_specifier",
+            "ID",
+            "[",
+            "]"
+        ]
+    },
+    "compound_stmt": {
+        "{": [
+            "{",
+            "local_declarations",
+            "statement_list",
+            "}"
+        ]
+    },
+    "local_declarations": {
+        "return": [
+            "empty",
+            "local_declarations'"
+        ],
+        "while": [
+            "empty",
+            "local_declarations'"
+        ],
+        "(": [
+            "empty",
+            "local_declarations'"
+        ],
+        "else": [
+            "empty",
+            "local_declarations'"
+        ],
+        "int": [
+            "empty",
+            "local_declarations'"
+        ],
+        "ID": [
+            "empty",
+            "local_declarations'"
+        ],
+        "void": [
+            "empty",
+            "local_declarations'"
+        ],
+        "$": [
+            "empty",
+            "local_declarations'"
+        ],
+        ";": [
+            "empty",
+            "local_declarations'"
+        ],
+        "}": [
+            "empty",
+            "local_declarations'"
+        ],
+        "NUM": [
+            "empty",
+            "local_declarations'"
+        ],
+        "if": [
+            "empty",
+            "local_declarations'"
+        ],
+        "{": [
+            "empty",
+            "local_declarations'"
+        ]
+    },
+    "local_declarations'": {
+        "int": [
+            "empty"
+        ],
+        "void": [
+            "empty"
+        ],
+        "return": [
+            "empty"
+        ],
+        "while": [
+            "empty"
+        ],
+        "(": [
+            "empty"
+        ],
+        "else": [
+            "empty"
+        ],
+        "ID": [
+            "empty"
+        ],
+        "$": [
+            "empty"
+        ],
+        ";": [
+            "empty"
+        ],
+        "}": [
+            "empty"
+        ],
+        "NUM": [
+            "empty"
+        ],
+        "if": [
+            "empty"
+        ],
+        "{": [
+            "empty"
+        ]
+    },
+    "statement_list": {
+        "}": [
+            "empty",
+            "statement_list'"
+        ]
+    },
+    "statement_list'": {
+        "ID": [
+            "statement",
+            "statement_list'"
+        ],
+        "(": [
+            "statement",
+            "statement_list'"
+        ],
+        ";": [
+            "statement",
+            "statement_list'"
+        ],
+        "return": [
+            "statement",
+            "statement_list'"
+        ],
+        "NUM": [
+            "statement",
+            "statement_list'"
+        ],
+        "while": [
+            "statement",
+            "statement_list'"
+        ],
+        "if": [
+            "statement",
+            "statement_list'"
+        ],
+        "{": [
+            "statement",
+            "statement_list'"
+        ],
+        "}": [
+            "empty"
+        ]
+    },
+    "statement": {
+        "ID": [
+            "expression_stmt"
+        ],
+        "(": [
+            "expression_stmt"
+        ],
+        ";": [
+            "expression_stmt"
+        ],
+        "NUM": [
+            "expression_stmt"
+        ],
+        "{": [
+            "compound_stmt"
+        ],
+        "if": [
+            "selection_stmt"
+        ],
+        "while": [
+            "iteration_stmt"
+        ],
+        "return": [
+            "return_stmt"
+        ]
+    },
+    "expression_stmt": {
+        "ID": [
+            "expression",
+            ";"
+        ],
+        "(": [
+            "expression",
+            ";"
+        ],
+        "NUM": [
+            "expression",
+            ";"
+        ],
+        ";": [
+            ";"
+        ]
+    },
+    "selection_stmt": {
+        "if": [
+            "if",
+            "(",
+            "expression",
+            ")",
+            "statement",
+            "else",
+            "statement"
+        ]
+    },
+    "iteration_stmt": {
+        "while": [
+            "while",
+            "(",
+            "expression",
+            ")",
+            "statement"
+        ]
+    },
+    "return_stmt": {
+        "return": [
+            "return",
+            "expression",
+            ";"
+        ]
+    },
+    "expression": {
+        "ID": [
+            "simple_expression"
+        ],
+        "(": [
+            "simple_expression"
+        ],
+        "NUM": [
+            "simple_expression"
+        ]
+    },
+    "var": {
+        "ID": [
+            "ID",
+            "[",
+            "expression",
+            "]"
+        ]
+    },
+    "simple_expression": {
+        "ID": [
+            "additive_expression"
+        ],
+        "(": [
+            "additive_expression"
+        ],
+        "NUM": [
+            "additive_expression"
+        ]
+    },
+    "relop": {
+        "<=": [
+            "<="
+        ],
+        "<": [
+            "<"
+        ],
+        ">": [
+            ">"
+        ],
+        ">=": [
+            ">="
+        ],
+        "==": [
+            "=="
+        ],
+        "!=": [
+            "!="
+        ]
+    },
+    "additive_expression": {
+        "ID": [
+            "term",
+            "additive_expression'"
+        ],
+        "(": [
+            "term",
+            "additive_expression'"
+        ],
+        "NUM": [
+            "term",
+            "additive_expression'"
+        ]
+    },
+    "additive_expression'": {
+        "+": [
+            "addop",
+            "term",
+            "additive_expression'"
+        ],
+        "-": [
+            "addop",
+            "term",
+            "additive_expression'"
+        ],
+        ">=": [
+            "empty"
+        ],
+        ")": [
+            "empty"
+        ],
+        ",": [
+            "empty"
+        ],
+        "<": [
+            "empty"
+        ],
+        "==": [
+            "empty"
+        ],
+        "<=": [
+            "empty"
+        ],
+        "!=": [
+            "empty"
+        ],
+        ">": [
+            "empty"
+        ],
+        ";": [
+            "empty"
+        ],
+        "]": [
+            "empty"
+        ]
+    },
+    "addop": {
+        "+": [
+            "+"
+        ],
+        "-": [
+            "-"
+        ]
+    },
+    "term": {
+        "ID": [
+            "factor",
+            "term'"
+        ],
+        "(": [
+            "factor",
+            "term'"
+        ],
+        "NUM": [
+            "factor",
+            "term'"
+        ]
+    },
+    "term'": {
+        "/": [
+            "mulop",
+            "factor",
+            "term'"
+        ],
+        "*": [
+            "mulop",
+            "factor",
+            "term'"
+        ],
+        ">=": [
+            "empty"
+        ],
+        ")": [
+            "empty"
+        ],
+        ",": [
+            "empty"
+        ],
+        "-": [
+            "empty"
+        ],
+        "<": [
+            "empty"
+        ],
+        "+": [
+            "empty"
+        ],
+        "==": [
+            "empty"
+        ],
+        "<=": [
+            "empty"
+        ],
+        "!=": [
+            "empty"
+        ],
+        ">": [
+            "empty"
+        ],
+        ";": [
+            "empty"
+        ],
+        "]": [
+            "empty"
+        ]
+    },
+    "mulop": {
+        "*": [
+            "*"
+        ],
+        "/": [
+            "/"
+        ]
+    },
+    "factor": {
+        "(": [
+            "(",
+            "expression",
+            ")"
+        ],
+        "ID": [
+            "call"
+        ],
+        "NUM": [
+            "NUM"
+        ]
+    },
+    "call": {
+        "ID": [
+            "ID",
+            "(",
+            "args",
+            ")"
+        ]
+    },
+    "args": {
+        "ID": [
+            "arg_list"
+        ],
+        "(": [
+            "arg_list"
+        ],
+        "NUM": [
+            "arg_list"
+        ],
+        ")": [
+            "empty"
+        ]
+    },
+    "arg_list": {
+        "ID": [
+            "expression",
+            "arg_list'"
+        ],
+        "(": [
+            "expression",
+            "arg_list'"
+        ],
+        "NUM": [
+            "expression",
+            "arg_list'"
+        ]
+    },
+    "arg_list'": {
+        ",": [
+            ",",
+            "expression",
+            "arg_list'"
+        ],
+        ")": [
+            "empty"
+        ]
+    }
+}
