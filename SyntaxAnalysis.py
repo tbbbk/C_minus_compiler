@@ -26,10 +26,10 @@ def eliminate_left_recursion_and_factor(grammar: dict) -> dict:
             new_grammar[non_terminal] = []
             new_grammar[new_non_terminal] = []
             for b in beta:
-                # if b == ['empty']:
-                #     new_grammar[non_terminal].append([new_non_terminal])
-                # else:
-                new_grammar[non_terminal].append(b + [new_non_terminal])
+                if b == ['empty']:
+                    new_grammar[non_terminal].append([new_non_terminal])
+                else:
+                    new_grammar[non_terminal].append(b + [new_non_terminal])
             for a in alpha:
                 new_grammar[new_non_terminal].append(a + [new_non_terminal])
             new_grammar[new_non_terminal].append(['empty'])
@@ -102,14 +102,13 @@ def build_follow_set(grammar: dict, first_set: dict, start_symbol: str) -> dict:
             for production in grammar[non_terminal]:
                 for i, symbol in enumerate(production):
                     if symbol not in grammar:
-                        print(symbol)
                         continue
                     if i + 1 < len(production):
                         next_symbol = production[i + 1]
                         if next_symbol in grammar:
                             original_follow = follow_set[symbol].copy()
                             follow_set[symbol].update(first_set[next_symbol] - {'empty'})
-                            if 'empty' in first_set[next_symbol]:
+                            if 'empty' in first_set[next_symbol] and i + 2 == len(production):
                                 follow_set[symbol].update(follow_set[non_terminal])
                             if follow_set[symbol] != original_follow:
                                 changed = True
@@ -178,7 +177,7 @@ def syntax_analysis(tokens: Tuple[str, str]):
     grammar = GRAMMAR
     start_symbol = 'program'
     new_tokens = convert_tokens(tokens)
-    grammar = eliminate_left_recursion_and_factor(grammar=grammar)
+    # grammar = eliminate_left_recursion_and_factor(grammar=grammar)
     first_set = build_first_set(grammar=grammar)
     follow_set = build_follow_set(grammar=grammar, 
                                   first_set=first_set, 
