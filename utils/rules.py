@@ -10,9 +10,8 @@ class KeyWord():
     R_VOID: str = r"\bvoid\b"
     R_WHILE: str = r"\bwhile\b"
 
-    S_LMARK: str = r"\/\*"
-    S_RMARK: str = r"\*\/"
-    
+    MARK: str = r"/\*.*?\*/"
+
     S_ADD: str = r"\+"
     S_SUB: str = r"\-"
     S_MUL: str = r"\*"

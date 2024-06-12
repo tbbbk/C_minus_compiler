@@ -22,7 +22,7 @@ def eliminate_left_recursion_and_factor(grammar: dict) -> dict:
                 beta.append(production)
         
         if alpha:
-            new_non_terminal = non_terminal + "'"
+            new_non_terminal = non_terminal + "#"
             new_grammar[non_terminal] = []
             new_grammar[new_non_terminal] = []
             for b in beta:
@@ -50,7 +50,7 @@ def eliminate_left_recursion_and_factor(grammar: dict) -> dict:
         if len(left_factor) == 0 or len(new_grammar[non_terminal]) <= 1:
             new_new_grammar[non_terminal] = new_grammar[non_terminal]
         else:
-            new_non_terminal = non_terminal + "*"
+            new_non_terminal = non_terminal + "#"
             new_new_grammar[non_terminal] = [left_factor + [new_non_terminal]]
             new_production = []
             for production in new_grammar[non_terminal]:
@@ -82,9 +82,13 @@ def build_first_set(grammar: dict) -> dict:
     changed = True
     while changed:
         changed = False
-        for non_terminal in grammar:
+        for non_terminal, productions in grammar.items():
             original_size = len(first_set[non_terminal])
             first(non_terminal)
+            for production in productions:
+                for token in production:
+                    if token not in grammar and token not in first_set:
+                        first_set.update({token: {token}})
             if len(first_set[non_terminal]) > original_size:
                 changed = True
                 
@@ -131,9 +135,10 @@ def build_ll1_table(grammar: dict, first_set: dict, follow_set: dict) -> dict:
     
     for non_terminal in grammar:
         for production in grammar[non_terminal]:
-            first_value = [production[0]] if production[0] not in first_set else first_set[production[0]]
+            first_value = first_set[production[0]]
             for a in first_value:
-                ll1_table[non_terminal].update({a: production})
+                if a != 'empty':
+                    ll1_table[non_terminal].update({a: production})
             if 'empty' in first_value:
                 for a in follow_set[non_terminal]:
                     ll1_table[non_terminal].update({a: production})
@@ -153,7 +158,6 @@ def parse_ll1(tokens: List[Tuple[str, str]],
             elif token == stack[-1] and token != '$':
                 stack.pop()
                 print(f'[Match] {token}')
-                # print('-[stack]', stack, '[token]', token)
                 break
             elif token != stack[-1] and stack[-1] in grammar:
                 if token in ll1_table[stack[-1]].keys():
@@ -161,7 +165,6 @@ def parse_ll1(tokens: List[Tuple[str, str]],
                     stack_top = stack.pop()
                     stack += reversed(ll1_table[stack_top][token])
                     stack = list(filter(lambda x : x != 'empty', stack))
-                    # print('-[stack]', stack, '[token]', token)
                     
                 else:
                     print('[stack]', stack, '[token]', token)
@@ -177,7 +180,7 @@ def syntax_analysis(tokens: Tuple[str, str]):
     grammar = GRAMMAR
     start_symbol = 'program'
     new_tokens = convert_tokens(tokens)
-    # grammar = eliminate_left_recursion_and_factor(grammar=grammar)
+    grammar = eliminate_left_recursion_and_factor(grammar=grammar)
     first_set = build_first_set(grammar=grammar)
     follow_set = build_follow_set(grammar=grammar, 
                                   first_set=first_set, 
@@ -190,7 +193,6 @@ def syntax_analysis(tokens: Tuple[str, str]):
         json.dump(grammar, f, indent=4)
     with open('ll1_table.json', 'w') as f:
         json.dump(ll1_table, f, indent=4)
-    # pdb.set_trace()
     parse_ll1(tokens=new_tokens,
               ll1_table=ll1_table,
               grammar=grammar,

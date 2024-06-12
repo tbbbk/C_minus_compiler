@@ -11,17 +11,11 @@ GRAMMAR = {
     ],
     "declaration_list": [
         [
-            "declaration",
-            "declaration_list#"
-        ]
-    ],
-    "declaration_list#": [
-        [
-            "declaration",
-            "declaration_list#"
+            "declaration_list",
+            "declaration"
         ],
         [
-            "empty"
+            "declaration"
         ]
     ],
     "declaration": [
@@ -36,17 +30,14 @@ GRAMMAR = {
         [
             "type_specifier",
             "ID",
-            "var_declaration#"
-        ]
-    ],
-    "var_declaration#": [
-        [
-            "[",
-            "NUM",
-            "]",
             ";"
         ],
         [
+            "type_specifier",
+            "ID",
+            "[",
+            "NUM",
+            "]",
             ";"
         ]
     ],
@@ -78,34 +69,24 @@ GRAMMAR = {
     ],
     "param_list": [
         [
-            "param",
-            "param_list#"
-        ]
-    ],
-    "param_list#": [
-        [
+            "param_list",
             ",",
-            "param",
-            "param_list#"
+            "param"
         ],
         [
-            "empty"
+            "param"
         ]
     ],
     "param": [
         [
             "type_specifier",
-            "ID",
-            "param#"
-        ]
-    ],
-    "param#": [
-        [
-            "[",
-            "]"
+            "ID"
         ],
         [
-            "empty"
+            "type_specifier",
+            "ID",
+            "[",
+            "]"
         ]
     ],
     "compound_stmt": [
@@ -118,13 +99,8 @@ GRAMMAR = {
     ],
     "local_declarations": [
         [
-            "local_declarations#"
-        ]
-    ],
-    "local_declarations#": [
-        [
-            "var_declaration",
-            "local_declarations#"
+            "local_declarations",
+            "var_declaration"
         ],
         [
             "empty"
@@ -132,13 +108,8 @@ GRAMMAR = {
     ],
     "statement_list": [
         [
-            "statement_list#"
-        ]
-    ],
-    "statement_list#": [
-        [
-            "statement",
-            "statement_list#"
+            "statement_list",
+            "statement"
         ],
         [
             "empty"
@@ -176,17 +147,16 @@ GRAMMAR = {
             "(",
             "expression",
             ")",
-            "statement",
-            "selection_stmt#"
-        ]
-    ],
-    "selection_stmt#": [
-        [
-            "else",
             "statement"
         ],
         [
-            "empty"
+            "if",
+            "(",
+            "expression",
+            ")",
+            "statement",
+            "else",
+            "statement"
         ]
     ],
     "iteration_stmt": [
@@ -200,55 +170,42 @@ GRAMMAR = {
     ],
     "return_stmt": [
         [
+            "return"
+        ],
+        [
             "return",
-            "return_stmt#"
+            "expression"
         ]
-    ],
-    "return_stmt#": [
-        [
-            "expression",
-            ";"
-        ],
-        [
-            ";"
-        ],
     ],
     "expression": [
         [
-            "ID",
-            "expression#"
-        ]
-    ],
-    "expression#": [
-        [
+            "var",
             "=",
             "expression"
         ],
         [
-            "term#",
-            "additive_expression#",
             "simple_expression"
+        ]
+    ],
+    "var": [
+        [
+            "ID"
         ],
         [
-            "call",
-            "term#",
-            "additive_expression#",
-            "simple_expression"
+            "ID",
+            "[",
+            "expression",
+            "]"
         ]
     ],
     "simple_expression": [
         [
             "additive_expression",
-            "simple_expression#"
-        ]
-    ],
-    "simple_expression#": [
-        [
             "relop",
             "additive_expression"
         ],
         [
-            "empty"
+            "additive_expression"
         ]
     ],
     "relop": [
@@ -273,18 +230,12 @@ GRAMMAR = {
     ],
     "additive_expression": [
         [
-            "term",
-            "additive_expression#"
-        ]
-    ],
-    "additive_expression#": [
-        [
+            "additive_expression",
             "addop",
-            "term",
-            "additive_expression#"
+            "term"
         ],
         [
-            "empty"
+            "term"
         ]
     ],
     "addop": [
@@ -297,18 +248,12 @@ GRAMMAR = {
     ],
     "term": [
         [
-            "factor",
-            "term#"
-        ]
-    ],
-    "term#": [
-        [
+            "term",
             "mulop",
-            "factor",
-            "term#"
+            "factor"
         ],
         [
-            "empty"
+            "factor"
         ]
     ],
     "mulop": [
@@ -326,7 +271,9 @@ GRAMMAR = {
             ")"
         ],
         [
-            "ID",
+            "var"
+        ],
+        [
             "call"
         ],
         [
@@ -335,12 +282,10 @@ GRAMMAR = {
     ],
     "call": [
         [
+            "ID",
             "(",
             "args",
             ")"
-        ],
-        [
-            "empty"
         ]
     ],
     "args": [
@@ -353,18 +298,379 @@ GRAMMAR = {
     ],
     "arg_list": [
         [
-            "expression",
-            "arg_list#"
-        ]
-    ],
-    "arg_list#": [
-        [
-            ",",
-            "expression",
-            "arg_list#"
+            "arg_list",
+            "expression"
         ],
         [
-            "empty"
+            "expression"
         ]
     ]
 }
+
+# GRAMMAR = {
+#     "program": [
+#         [
+#             "declaration_list"
+#         ]
+#     ],
+#     "declaration_list": [
+#         [
+#             "declaration",
+#             "declaration_list#"
+#         ]
+#     ],
+#     "declaration_list#": [
+#         [
+#             "declaration",
+#             "declaration_list#"
+#         ],
+#         [
+#             "empty"
+#         ]
+#     ],
+#     "declaration": [
+#         [
+#             "var_declaration"
+#         ],
+#         [
+#             "fun_declaration"
+#         ]
+#     ],
+#     "var_declaration": [
+#         [
+#             "type_specifier",
+#             "ID",
+#             "var_declaration#"
+#         ]
+#     ],
+#     "var_declaration#": [
+#         [
+#             ";"
+#         ],
+#         [
+#             "[",
+#             "NUM",
+#             "]",
+#             ";"
+#         ],
+#         [
+#             "empty"
+#         ]
+#     ],
+#     "type_specifier": [
+#         [
+#             "int"
+#         ],
+#         [
+#             "void"
+#         ]
+#     ],
+#     "fun_declaration": [
+#         [
+#             "type_specifier",
+#             "ID",
+#             "(",
+#             "params",
+#             ")",
+#             "compound_stmt"
+#         ]
+#     ],
+#     "params": [
+#         [
+#             "param_list"
+#         ],
+#         [
+#             "void"
+#         ]
+#     ],
+#     "param_list": [
+#         [
+#             "param",
+#             "param_list#"
+#         ]
+#     ],
+#     "param_list#": [
+#         [
+#             ",",
+#             "param",
+#             "param_list#"
+#         ],
+#         [
+#             "empty"
+#         ]
+#     ],
+#     "param": [
+#         [
+#             "type_specifier",
+#             "ID",
+#             "param#"
+#         ]
+#     ],
+#     "param#": [
+#         [
+#             "[",
+#             "]"
+#         ],
+#         [
+#             "empty"
+#         ]
+#     ],
+#     "compound_stmt": [
+#         [
+#             "{",
+#             "local_declarations",
+#             "statement_list",
+#             "}"
+#         ]
+#     ],
+#     "local_declarations": [
+#         [
+#             "local_declarations#"
+#         ]
+#     ],
+#     "local_declarations#": [
+#         [
+#             "var_declaration",
+#             "local_declarations#"
+#         ],
+#         [
+#             "empty"
+#         ]
+#     ],
+#     "statement_list": [
+#         [
+#             "statement_list#"
+#         ]
+#     ],
+#     "statement_list#": [
+#         [
+#             "statement",
+#             "statement_list#"
+#         ],
+#         [
+#             "empty"
+#         ]
+#     ],
+#     "statement": [
+#         [
+#             "expression_stmt"
+#         ],
+#         [
+#             "compound_stmt"
+#         ],
+#         [
+#             "selection_stmt"
+#         ],
+#         [
+#             "iteration_stmt"
+#         ],
+#         [
+#             "return_stmt"
+#         ]
+#     ],
+#     "expression_stmt": [
+#         [
+#             "expression",
+#             ";"
+#         ],
+#         [
+#             ";"
+#         ]
+#     ],
+#     "selection_stmt": [
+#         [
+#             "if",
+#             "(",
+#             "expression",
+#             ")",
+#             "statement",
+#             "selection_stmt#"
+#         ]
+#     ],
+#     "selection_stmt#": [
+#         [
+#             "else",
+#             "statement"
+#         ],
+#         [
+#             "empty"
+#         ]
+#     ],
+#     "iteration_stmt": [
+#         [
+#             "while",
+#             "(",
+#             "expression",
+#             ")",
+#             "statement"
+#         ]
+#     ],
+#     "return_stmt": [
+#         [
+#             "return",
+#             "return_stmt#"
+#         ]
+#     ],
+#     "return_stmt#": [
+#         [
+#             "expression"
+#         ],
+#         [
+#             "empty"
+#         ]
+#     ],
+#     "expression": [
+#         [
+#             "ID",
+#             "expression#"
+#         ]
+#     ],
+#     "expression#": [
+#         [
+#             "=",
+#             "expression"
+#         ],
+#         [
+#             "term#",
+#             "additive_expression#",
+#             "simple_expression"
+#         ],
+#         [
+#             "call",
+#             "term#",
+#             "additive_expression#",
+#             "simple_expression"
+#         ]
+#     ],
+#     "simple_expression": [
+#         [
+#             "additive_expression",
+#             "simple_expression#"
+#         ]
+#     ],
+#     "simple_expression#": [
+#         [
+#             "relop",
+#             "additive_expression"
+#         ],
+#         [
+#             "empty"
+#         ]
+#     ],
+#     "relop": [
+#         [
+#             "<="
+#         ],
+#         [
+#             "<"
+#         ],
+#         [
+#             ">"
+#         ],
+#         [
+#             ">="
+#         ],
+#         [
+#             "=="
+#         ],
+#         [
+#             "!="
+#         ]
+#     ],
+#     "additive_expression": [
+#         [
+#             "term",
+#             "additive_expression#"
+#         ]
+#     ],
+#     "additive_expression#": [
+#         [
+#             "addop",
+#             "term",
+#             "additive_expression#"
+#         ],
+#         [
+#             "empty"
+#         ]
+#     ],
+#     "addop": [
+#         [
+#             "+"
+#         ],
+#         [
+#             "-"
+#         ]
+#     ],
+#     "term": [
+#         [
+#             "factor",
+#             "term#"
+#         ]
+#     ],
+#     "term#": [
+#         [
+#             "mulop",
+#             "factor",
+#             "term#"
+#         ],
+#         [
+#             "empty"
+#         ]
+#     ],
+#     "mulop": [
+#         [
+#             "*"
+#         ],
+#         [
+#             "/"
+#         ]
+#     ],
+#     "factor": [
+#         [
+#             "(",
+#             "expression",
+#             ")"
+#         ],
+#         [
+#             "ID",
+#             "call"
+#         ],
+#         [
+#             "NUM"
+#         ]
+#     ],
+#     "call": [
+#         [
+#             "(",
+#             "args",
+#             ")"
+#         ],
+#         [
+#             "empty"
+#         ]
+#     ],
+#     "args": [
+#         [
+#             "arg_list"
+#         ],
+#         [
+#             "empty"
+#         ]
+#     ],
+#     "arg_list": [
+#         [
+#             "expression",
+#             "arg_list#"
+#         ]
+#     ],
+#     "arg_list#": [
+#         [
+#             ",",
+#             "expression",
+#             "arg_list#"
+#         ],
+#         [
+#             "empty"
+#         ]
+#     ]
+# }

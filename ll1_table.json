@@ -1,67 +1,94 @@
 {
     "program": {
-        "void": [
+        "int": [
             "declaration_list"
         ],
-        "int": [
+        "void": [
             "declaration_list"
         ]
     },
     "declaration_list": {
-        "void": [
+        "int": [
             "declaration",
             "declaration_list#"
         ],
-        "int": [
+        "void": [
             "declaration",
             "declaration_list#"
         ]
     },
     "declaration_list#": {
-        "void": [
-            "declaration",
-            "declaration_list#"
-        ],
         "int": [
             "declaration",
             "declaration_list#"
         ],
-        "empty": [
-            "empty"
+        "void": [
+            "declaration",
+            "declaration_list#"
         ],
         "$": [
             "empty"
         ]
     },
     "declaration": {
-        "void": [
+        "int": [
             "fun_declaration"
         ],
-        "int": [
+        "void": [
             "fun_declaration"
         ]
     },
     "var_declaration": {
-        "void": [
+        "int": [
             "type_specifier",
             "ID",
             "var_declaration#"
         ],
-        "int": [
+        "void": [
             "type_specifier",
             "ID",
             "var_declaration#"
         ]
     },
     "var_declaration#": {
+        ";": [
+            "empty"
+        ],
         "[": [
             "[",
             "NUM",
             "]",
             ";"
         ],
-        ";": [
-            ";"
+        "while": [
+            "empty"
+        ],
+        "int": [
+            "empty"
+        ],
+        "return": [
+            "empty"
+        ],
+        "if": [
+            "empty"
+        ],
+        "(": [
+            "empty"
+        ],
+        "NUM": [
+            "empty"
+        ],
+        "ID": [
+            "empty"
+        ],
+        "void": [
+            "empty"
+        ],
+        "{": [
+            "empty"
+        ],
+        "$": [
+            "empty"
         ]
     },
     "type_specifier": {
@@ -73,7 +100,7 @@
         ]
     },
     "fun_declaration": {
-        "void": [
+        "int": [
             "type_specifier",
             "ID",
             "(",
@@ -81,7 +108,7 @@
             ")",
             "compound_stmt"
         ],
-        "int": [
+        "void": [
             "type_specifier",
             "ID",
             "(",
@@ -91,19 +118,19 @@
         ]
     },
     "params": {
-        "void": [
-            "void"
-        ],
         "int": [
             "param_list"
+        ],
+        "void": [
+            "void"
         ]
     },
     "param_list": {
-        "void": [
+        "int": [
             "param",
             "param_list#"
         ],
-        "int": [
+        "void": [
             "param",
             "param_list#"
         ]
@@ -114,20 +141,17 @@
             "param",
             "param_list#"
         ],
-        "empty": [
-            "empty"
-        ],
         ")": [
             "empty"
         ]
     },
     "param": {
-        "void": [
+        "int": [
             "type_specifier",
             "ID",
             "param#"
         ],
-        "int": [
+        "void": [
             "type_specifier",
             "ID",
             "param#"
@@ -137,9 +161,6 @@
         "[": [
             "[",
             "]"
-        ],
-        "empty": [
-            "empty"
         ],
         ",": [
             "empty"
@@ -157,76 +178,79 @@
         ]
     },
     "local_declarations": {
-        "void": [
-            "local_declarations#"
-        ],
         "int": [
             "local_declarations#"
         ],
-        "empty": [
-            "local_declarations#"
-        ],
-        ";": [
-            "local_declarations#"
-        ],
-        "return": [
+        "void": [
             "local_declarations#"
         ],
         "if": [
             "local_declarations#"
         ],
-        "{": [
+        "(": [
+            "local_declarations#"
+        ],
+        "NUM": [
             "local_declarations#"
         ],
         "ID": [
             "local_declarations#"
         ],
         "while": [
+            "local_declarations#"
+        ],
+        "{": [
+            "local_declarations#"
+        ],
+        ";": [
+            "local_declarations#"
+        ],
+        "return": [
             "local_declarations#"
         ]
     },
     "local_declarations#": {
-        "void": [
-            "var_declaration",
-            "local_declarations#"
-        ],
         "int": [
             "var_declaration",
             "local_declarations#"
         ],
-        "empty": [
-            "empty"
-        ],
-        ";": [
-            "empty"
-        ],
-        "return": [
-            "empty"
+        "void": [
+            "var_declaration",
+            "local_declarations#"
         ],
         "if": [
             "empty"
         ],
-        "{": [
+        "(": [
+            "empty"
+        ],
+        "NUM": [
             "empty"
         ],
         "ID": [
             "empty"
         ],
         "while": [
+            "empty"
+        ],
+        "{": [
+            "empty"
+        ],
+        ";": [
+            "empty"
+        ],
+        "return": [
             "empty"
         ]
     },
     "statement_list": {
-        ";": [
-            "statement_list#"
-        ],
-        "return": [
-            "statement_list#"
-        ],
         "if": [
             "statement_list#"
         ],
-        "{": [
+        "(": [
+            "statement_list#"
+        ],
+        "NUM": [
             "statement_list#"
         ],
         "ID": [
@@ -235,7 +259,13 @@
         "while": [
             "statement_list#"
         ],
-        "empty": [
+        "{": [
+            "statement_list#"
+        ],
+        ";": [
+            "statement_list#"
+        ],
+        "return": [
             "statement_list#"
         ],
         "}": [
@@ -243,23 +273,19 @@
         ]
     },
     "statement_list#": {
-        ";": [
-            "statement",
-            "statement_list#"
-        ],
-        "{": [
-            "statement",
-            "statement_list#"
-        ],
-        "ID": [
-            "statement",
-            "statement_list#"
-        ],
         "if": [
             "statement",
             "statement_list#"
         ],
-        "return": [
+        "(": [
+            "statement",
+            "statement_list#"
+        ],
+        "NUM": [
+            "statement",
+            "statement_list#"
+        ],
+        "ID": [
             "statement",
             "statement_list#"
         ],
@@ -267,18 +293,33 @@
             "statement",
             "statement_list#"
         ],
-        "empty": [
-            "empty"
+        "{": [
+            "statement",
+            "statement_list#"
+        ],
+        ";": [
+            "statement",
+            "statement_list#"
+        ],
+        "return": [
+            "statement",
+            "statement_list#"
         ],
         "}": [
             "empty"
         ]
     },
     "statement": {
-        ";": [
+        "(": [
+            "expression_stmt"
+        ],
+        "NUM": [
             "expression_stmt"
         ],
         "ID": [
+            "expression_stmt"
+        ],
+        ";": [
             "expression_stmt"
         ],
         "{": [
@@ -295,6 +336,14 @@
         ]
     },
     "expression_stmt": {
+        "(": [
+            "expression",
+            ";"
+        ],
+        "NUM": [
+            "expression",
+            ";"
+        ],
         "ID": [
             "expression",
             ";"
@@ -317,28 +366,31 @@
         "else": [
             "empty"
         ],
-        "empty": [
+        "}": [
             "empty"
         ],
-        ";": [
-            "empty"
-        ],
-        "if": [
+        "while": [
             "empty"
         ],
         "return": [
             "empty"
         ],
-        "{": [
+        "if": [
+            "empty"
+        ],
+        "(": [
+            "empty"
+        ],
+        "NUM": [
             "empty"
         ],
         "ID": [
             "empty"
         ],
-        "}": [
+        "{": [
             "empty"
         ],
-        "while": [
+        ";": [
             "empty"
         ]
     },
@@ -358,67 +410,135 @@
         ]
     },
     "return_stmt#": {
+        "(": [
+            "empty"
+        ],
+        "NUM": [
+            "empty"
+        ],
         "ID": [
-            "expression",
-            ";"
+            "empty"
+        ],
+        "}": [
+            "empty"
+        ],
+        "while": [
+            "empty"
+        ],
+        "return": [
+            "empty"
+        ],
+        "if": [
+            "empty"
+        ],
+        "else": [
+            "empty"
+        ],
+        "{": [
+            "empty"
         ],
         ";": [
-            ";"
+            "empty"
         ]
     },
     "expression": {
         "ID": [
-            "ID",
-            "expression#"
-        ]
-    },
-    "expression#": {
-        "=": [
-            "=",
-            "expression"
-        ],
-        "/": [
-            "term#",
-            "additive_expression#",
-            "simple_expression"
-        ],
-        "*": [
-            "term#",
-            "additive_expression#",
-            "simple_expression"
-        ],
-        "empty": [
-            "call",
-            "term#",
-            "additive_expression#",
-            "simple_expression"
-        ],
-        ",": [
-            "call",
-            "term#",
-            "additive_expression#",
-            "simple_expression"
-        ],
-        ";": [
-            "call",
-            "term#",
-            "additive_expression#",
-            "simple_expression"
-        ],
-        ")": [
-            "call",
-            "term#",
-            "additive_expression#",
             "simple_expression"
         ],
         "(": [
-            "call",
-            "term#",
-            "additive_expression#",
+            "simple_expression"
+        ],
+        "NUM": [
             "simple_expression"
         ]
     },
+    "var": {
+        "ID": [
+            "ID",
+            "var#"
+        ]
+    },
+    "var#": {
+        "[": [
+            "[",
+            "expression",
+            "]"
+        ],
+        "!=": [
+            "empty"
+        ],
+        "/": [
+            "empty"
+        ],
+        "*": [
+            "empty"
+        ],
+        ">=": [
+            "empty"
+        ],
+        ")": [
+            "empty"
+        ],
+        "else": [
+            "empty"
+        ],
+        "+": [
+            "empty"
+        ],
+        "ID": [
+            "empty"
+        ],
+        "]": [
+            "empty"
+        ],
+        ";": [
+            "empty"
+        ],
+        "<": [
+            "empty"
+        ],
+        "=": [
+            "empty"
+        ],
+        "}": [
+            "empty"
+        ],
+        "while": [
+            "empty"
+        ],
+        "return": [
+            "empty"
+        ],
+        "if": [
+            "empty"
+        ],
+        "(": [
+            "empty"
+        ],
+        ">": [
+            "empty"
+        ],
+        "<=": [
+            "empty"
+        ],
+        "NUM": [
+            "empty"
+        ],
+        "==": [
+            "empty"
+        ],
+        "{": [
+            "empty"
+        ],
+        "-": [
+            "empty"
+        ]
+    },
     "simple_expression": {
+        "(": [
+            "additive_expression",
+            "simple_expression#"
+        ],
         "NUM": [
             "additive_expression",
             "simple_expression#"
@@ -426,26 +546,10 @@
         "ID": [
             "additive_expression",
             "simple_expression#"
-        ],
-        "(": [
-            "additive_expression",
-            "simple_expression#"
         ]
     },
     "simple_expression#": {
         "==": [
-            "relop",
-            "additive_expression"
-        ],
-        "<": [
-            "relop",
-            "additive_expression"
-        ],
-        "<=": [
-            "relop",
-            "additive_expression"
-        ],
-        "!=": [
             "relop",
             "additive_expression"
         ],
@@ -457,16 +561,52 @@
             "relop",
             "additive_expression"
         ],
-        "empty": [
+        "!=": [
+            "relop",
+            "additive_expression"
+        ],
+        "<": [
+            "relop",
+            "additive_expression"
+        ],
+        "<=": [
+            "relop",
+            "additive_expression"
+        ],
+        "}": [
             "empty"
         ],
-        ",": [
+        "while": [
             "empty"
         ],
-        ";": [
+        "return": [
             "empty"
         ],
         ")": [
+            "empty"
+        ],
+        "if": [
+            "empty"
+        ],
+        "(": [
+            "empty"
+        ],
+        "else": [
+            "empty"
+        ],
+        "NUM": [
+            "empty"
+        ],
+        "ID": [
+            "empty"
+        ],
+        "]": [
+            "empty"
+        ],
+        "{": [
+            "empty"
+        ],
+        ";": [
             "empty"
         ]
     },
@@ -491,7 +631,7 @@
         ]
     },
     "additive_expression": {
-        "ID": [
+        "(": [
             "term",
             "additive_expression#"
         ],
@@ -499,7 +639,7 @@
             "term",
             "additive_expression#"
         ],
-        "(": [
+        "ID": [
             "term",
             "additive_expression#"
         ]
@@ -515,28 +655,37 @@
             "term",
             "additive_expression#"
         ],
-        "empty": [
-            "empty"
-        ],
         "!=": [
             "empty"
         ],
-        "<": [
+        "}": [
             "empty"
         ],
-        ";": [
+        "while": [
             "empty"
         ],
         ">=": [
             "empty"
         ],
-        "==": [
+        "return": [
+            "empty"
+        ],
+        ")": [
+            "empty"
+        ],
+        "if": [
+            "empty"
+        ],
+        "(": [
+            "empty"
+        ],
+        "else": [
+            "empty"
+        ],
+        ">": [
             "empty"
         ],
         "<=": [
-            "empty"
-        ],
-        ",": [
             "empty"
         ],
         "NUM": [
@@ -545,13 +694,19 @@
         "ID": [
             "empty"
         ],
-        ">": [
+        "]": [
             "empty"
         ],
-        ")": [
+        "==": [
             "empty"
         ],
-        "(": [
+        "{": [
+            "empty"
+        ],
+        ";": [
+            "empty"
+        ],
+        "<": [
             "empty"
         ]
     },
@@ -564,11 +719,11 @@
         ]
     },
     "term": {
-        "NUM": [
+        "(": [
             "factor",
             "term#"
         ],
-        "(": [
+        "NUM": [
             "factor",
             "term#"
         ],
@@ -578,59 +733,74 @@
         ]
     },
     "term#": {
-        "*": [
-            "mulop",
-            "factor",
-            "term#"
-        ],
         "/": [
             "mulop",
             "factor",
             "term#"
         ],
-        "empty": [
-            "empty"
+        "*": [
+            "mulop",
+            "factor",
+            "term#"
         ],
         "!=": [
-            "empty"
-        ],
-        "<": [
-            "empty"
-        ],
-        ";": [
             "empty"
         ],
         ">=": [
             "empty"
         ],
-        "==": [
+        ")": [
             "empty"
         ],
-        "-": [
-            "empty"
-        ],
-        "<=": [
+        "else": [
             "empty"
         ],
         "+": [
             "empty"
         ],
-        ",": [
-            "empty"
-        ],
-        "NUM": [
-            "empty"
-        ],
         "ID": [
+            "empty"
+        ],
+        "]": [
+            "empty"
+        ],
+        ";": [
+            "empty"
+        ],
+        "<": [
+            "empty"
+        ],
+        "}": [
+            "empty"
+        ],
+        "while": [
+            "empty"
+        ],
+        "return": [
+            "empty"
+        ],
+        "if": [
+            "empty"
+        ],
+        "(": [
             "empty"
         ],
         ">": [
             "empty"
         ],
-        ")": [
+        "<=": [
             "empty"
         ],
-        "(": [
+        "NUM": [
+            "empty"
+        ],
+        "==": [
+            "empty"
+        ],
+        "{": [
+            "empty"
+        ],
+        "-": [
             "empty"
         ]
     },
@@ -649,7 +819,6 @@
             ")"
         ],
         "ID": [
-            "ID",
             "call"
         ],
         "NUM": [
@@ -657,83 +826,53 @@
         ]
     },
     "call": {
-        "(": [
-            "empty"
-        ],
-        "empty": [
-            "empty"
-        ],
-        "!=": [
-            "empty"
-        ],
-        "<": [
-            "empty"
-        ],
-        ";": [
-            "empty"
-        ],
-        "*": [
-            "empty"
-        ],
-        ">=": [
-            "empty"
-        ],
-        "==": [
-            "empty"
-        ],
-        "-": [
-            "empty"
-        ],
-        "<=": [
-            "empty"
-        ],
-        "/": [
-            "empty"
-        ],
-        "+": [
-            "empty"
-        ],
-        ",": [
-            "empty"
-        ],
-        "NUM": [
-            "empty"
-        ],
         "ID": [
-            "empty"
-        ],
-        ">": [
-            "empty"
-        ],
-        ")": [
-            "empty"
+            "ID",
+            "(",
+            "args",
+            ")"
         ]
     },
     "args": {
-        "ID": [
+        "(": [
             "arg_list"
         ],
-        "empty": [
-            "empty"
+        "NUM": [
+            "arg_list"
+        ],
+        "ID": [
+            "arg_list"
         ],
         ")": [
             "empty"
         ]
     },
     "arg_list": {
+        "(": [
+            "expression",
+            "arg_list#"
+        ],
+        "NUM": [
+            "expression",
+            "arg_list#"
+        ],
         "ID": [
             "expression",
             "arg_list#"
         ]
     },
     "arg_list#": {
-        ",": [
-            ",",
+        "(": [
             "expression",
             "arg_list#"
         ],
-        "empty": [
-            "empty"
+        "NUM": [
+            "expression",
+            "arg_list#"
+        ],
+        "ID": [
+            "expression",
+            "arg_list#"
         ],
         ")": [
             "empty"

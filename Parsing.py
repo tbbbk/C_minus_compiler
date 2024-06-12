@@ -20,7 +20,7 @@ def get_regex_patterns(KeyWord: KeyWord) -> str:
     for key, value in vars(KeyWord).items():
         rules.append((key, value))
     regex_patterns = '|'.join('(?P<%s>%s)' % pair for pair in rules)
-    complie_re = re.compile(regex_patterns)
+    complie_re = re.compile(regex_patterns, re.DOTALL)
     return complie_re
 
 

@@ -36,13 +36,16 @@
     ],
     "var_declaration#": [
         [
+            ";"
+        ],
+        [
             "[",
             "NUM",
             "]",
             ";"
         ],
         [
-            ";"
+            "empty"
         ]
     ],
     "type_specifier": [
@@ -201,34 +204,36 @@
     ],
     "return_stmt#": [
         [
-            "expression",
-            ";"
+            "expression"
         ],
         [
-            ";"
+            "empty"
         ]
     ],
     "expression": [
         [
-            "ID",
-            "expression#"
-        ]
-    ],
-    "expression#": [
-        [
+            "var",
             "=",
             "expression"
         ],
         [
-            "term#",
-            "additive_expression#",
             "simple_expression"
+        ]
+    ],
+    "var": [
+        [
+            "ID",
+            "var#"
+        ]
+    ],
+    "var#": [
+        [
+            "[",
+            "expression",
+            "]"
         ],
         [
-            "call",
-            "term#",
-            "additive_expression#",
-            "simple_expression"
+            "empty"
         ]
     ],
     "simple_expression": [
@@ -321,7 +326,9 @@
             ")"
         ],
         [
-            "ID",
+            "var"
+        ],
+        [
             "call"
         ],
         [
@@ -330,12 +337,10 @@
     ],
     "call": [
         [
+            "ID",
             "(",
             "args",
             ")"
-        ],
-        [
-            "empty"
         ]
     ],
     "args": [
@@ -354,7 +359,6 @@
     ],
     "arg_list#": [
         [
-            ",",
             "expression",
             "arg_list#"
         ],

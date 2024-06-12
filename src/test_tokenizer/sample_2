@@ -1,8 +1,13 @@
 void main(void)
 {
+	/* asfasdfasdfasfd */
 	int x;
 	int y;
 	x=input();
 	y=intput();
 	output(gcd(x,y));
+	/* asfasdf
+	sadfas
+	sdfasf
+	asdfasfd */
 }
