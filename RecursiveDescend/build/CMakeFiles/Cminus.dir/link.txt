@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/Cminus.dir/test.cpp.o CMakeFiles/Cminus.dir/Lexer.cpp.o CMakeFiles/Cminus.dir/Parser.cpp.o -o Cminus 

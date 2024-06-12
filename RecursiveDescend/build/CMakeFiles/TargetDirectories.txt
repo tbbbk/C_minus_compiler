@@ -1,0 +1,3 @@
+/opt/c_minus_compiler/RecursiveDescend/build/CMakeFiles/Cminus.dir
+/opt/c_minus_compiler/RecursiveDescend/build/CMakeFiles/edit_cache.dir
+/opt/c_minus_compiler/RecursiveDescend/build/CMakeFiles/rebuild_cache.dir

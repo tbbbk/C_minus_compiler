@@ -1,0 +1,21 @@
+int x;
+void func(int a, int b) {
+    int y;
+    y = a + b;
+    if (y > 0) {
+        x = y;
+    } else {
+        x = 0;
+    }
+    while (x > 0) {
+        x = x - 1;
+    }
+    return;
+}
+
+int main(void) {
+    int z[10];
+    z[0] = 1;
+    func(2, 3);
+    return 0;
+}
